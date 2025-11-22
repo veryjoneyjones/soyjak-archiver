@@ -1,6 +1,6 @@
 # Sharty Archiver
 
-This project is an attempt to implement a fully working archiving program for the [Soyjak Party](soyjak.st) website.
+This project is an attempt to implement a fully working archiving program for the [Soyjak Party](https://soyjak.st/) website.
 
 # Goals
 
@@ -13,4 +13,4 @@ I will need to implement the following later:
 
 # License
 
-This project is protected under the SoyGNU license.
+This project is protected under the [SoyGNU](https://soystudios.serv00.net/soygnu/index.html) license.
