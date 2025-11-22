@@ -8,7 +8,7 @@ mod file;
 mod thread;
 
 #[derive(Debug, Parser)]
-#[command(version, about, long_about = None)]
+#[command(version, about)]
 struct Cli {
     #[command(subcommand)]
     command: Command,

@@ -5,6 +5,7 @@ use thiserror::Error;
 use tokio::{fs, io::AsyncWriteExt};
 use url::Url;
 
+/// Represents a file on the network
 #[derive(Debug)]
 pub struct File {
     pub url: String,
@@ -19,6 +20,7 @@ pub enum FileError {
 }
 
 impl File {
+    /// Creates a new file by using a string
     pub fn new(url: impl Into<String>) -> Self {
         let url = url.into();
 
@@ -41,6 +43,7 @@ impl File {
         }
     }
 
+    /// Downloads and writes a file to disk *asynchronously*
     pub async fn download_to_disk(&self, path: &PathBuf) -> Result<(), FileError> {
         let _ = fs::create_dir(&path).await;
 
@@ -89,6 +92,7 @@ impl File {
         Ok(())
     }
 
+    /// Turns a url into a filename
     fn url_to_filename(url: impl Into<String>) -> String {
         let url = url.into();
         let url = Url::parse(&url).unwrap();

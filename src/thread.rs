@@ -2,6 +2,7 @@ use scraper::{Html, Selector};
 
 use crate::file::File;
 
+/// Represents a board on the website
 #[derive(clap::ValueEnum, Debug, Clone)]
 pub enum Board {
     Soy,
@@ -73,6 +74,7 @@ impl std::fmt::Display for Board {
     }
 }
 
+/// Represents a thread with a board and id
 #[derive(Debug)]
 pub struct Thread {
     board: Board,
@@ -81,6 +83,7 @@ pub struct Thread {
 }
 
 impl Thread {
+    /// Fetches a thread from the specified board and id
     pub async fn fetch(board: Board, id: u64) -> Self {
         let thread_url = format!("https://soyjak.st/{}/thread/{}.html", board, id);
 
@@ -96,6 +99,7 @@ impl Thread {
         Self { board, id, html }
     }
 
+    /// Fetches the images of a given thread into a vector of files
     pub fn get_images(&self) -> Vec<File> {
         let target_div_selector = Selector::parse("body > form:nth-child(13)").unwrap();
 
