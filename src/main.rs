@@ -18,6 +18,9 @@ struct Cli {
 enum Command {
     Archive {
         #[arg(short, long)]
+        mode: ThreadArchiveMode,
+
+        #[arg(short, long)]
         board: Board,
 
         #[arg(short, long)]
@@ -28,18 +31,36 @@ enum Command {
     },
 }
 
+#[derive(clap::ValueEnum, Debug, Clone)]
+enum ThreadArchiveMode {
+    All,
+    Images,
+    Text,
+}
+
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     let args = Cli::parse();
 
     match args.command {
-        Command::Archive { board, id, path } => {
+        Command::Archive {
+            mode,
+            board,
+            id,
+            path,
+        } => {
             let thread = Thread::fetch(board, id).await;
 
-            for file in thread.get_images() {
-                if let Err(err) = file.download_to_disk(&path).await {
-                    eprintln!("An error occured while downloading {}. {err}", file.url);
+            match mode {
+                ThreadArchiveMode::All => todo!(),
+                ThreadArchiveMode::Images => {
+                    for file in thread.get_images() {
+                        if let Err(err) = file.download_to_disk(&path).await {
+                            eprintln!("An error occured while downloading {}. {err}", file.url);
+                        }
+                    }
                 }
+                ThreadArchiveMode::Text => todo!(),
             }
         }
     }

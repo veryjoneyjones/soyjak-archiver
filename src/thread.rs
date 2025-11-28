@@ -101,7 +101,7 @@ impl Thread {
 
     /// Fetches the images of a given thread into a vector of files
     pub fn get_images(&self) -> Vec<File> {
-        let target_div_selector = Selector::parse("body > form:nth-child(13)").unwrap();
+        let target_div_selector = Selector::parse(&format!("#thread_{}", self.id)).unwrap();
 
         let mut vec = Vec::new();
 
